@@ -28,7 +28,6 @@ class Game
 		hgeFont * font1;    //Write Score on the Screen
 		hgeFont * font3;        //Write Active Object, which clicked
 		hgeFont * fontScore;    //Write Score on the Screen
-		hgeFont * fontObjectId;    //Write Score on the Screen
 	}Fonts;
 	
 	Helpers * pHelpers;
@@ -47,6 +46,16 @@ class Game
 		}
 
 		TableWithChipsParameters(){}
+
+		//operator of assignment
+	private:
+		TableWithChipsParameters & operator = (TableWithChipsParameters & Right)
+		{
+			iraw = Right.iraw;
+			icolumn = Right.icolumn;
+			iId = Right.iId;
+			return *this;
+		}
 	};
 
 	std::map<std::string, TableWithChipsParameters> tablewithchips; // store current chip position and its group

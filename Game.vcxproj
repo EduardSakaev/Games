@@ -98,14 +98,10 @@
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="Holder.h" />
     <ClInclude Include="My_library.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SpriteEntityhge.h" />
     <ClInclude Include="VectorChild.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="stdafx.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="mahjong.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

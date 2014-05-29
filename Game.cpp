@@ -15,7 +15,6 @@ Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUnique
 
 	Fonts.font3   = new hgeFont(path);
 	Fonts.fontScore = new hgeFont(path);
-	Fonts.fontObjectId = new hgeFont(path);
 	Fonts.font1 = new hgeFont(path);
 
 	CreatePositions();
@@ -87,8 +86,8 @@ void Game::CreateObjectsTable()
 
 			// create table
 			TableWithChipsParameters table;
-			table.icolumn = i;
-			table.iraw    = j;
+			table.icolumn = j;
+			table.iraw    = i;
 			table.iId     = iCurrentChip;
 
 			tablewithchips.insert(std::make_pair(name, table));
@@ -154,7 +153,6 @@ Game::~Game()
 	//release int * positions
 	tablewithchips.clear();
 
-	delete Fonts.fontObjectId;
 	delete Fonts.font1;
 	delete Fonts.font3;
 	delete Fonts.fontScore;
@@ -207,7 +205,7 @@ void Game::OnClickBegin(Node * _pSprite)
 		return;
 	}
 
-	if ((bClicked != _pSprite) && (tablewithchips[bClicked -> GetName()].iId == tablewithchips[_pSprite-> GetName()].iId) && CheckOnConnect(_pSprite, bClicked) ) 
+	if ((bClicked != _pSprite) && (tablewithchips[bClicked -> GetName()].iId == tablewithchips[_pSprite-> GetName()].iId) && CheckOnConnect(bClicked, _pSprite) ) 
 	{
 		pHelpers->EntityHide(bClicked-> GetName());
 		pHelpers->EntityHide(_pSprite -> GetName());
@@ -250,6 +248,8 @@ void Game::RenderObjects()
 	{
 		Fonts.font1 -> printf(5, 100, HGETEXT_LEFT, "Focus: %s", focusedObject -> GetName().c_str());
 		Fonts.font1 -> printf(5, 130, HGETEXT_LEFT, "Object id is: %d", tablewithchips[focusedObject -> GetName().c_str()].iId);
+		Fonts.font1 -> printf(5, 160, HGETEXT_LEFT, "Chip raw is: %d", tablewithchips[focusedObject -> GetName().c_str()].iraw);
+		Fonts.font1 -> printf(5, 190, HGETEXT_LEFT, "Chip column is: %d", tablewithchips[focusedObject -> GetName().c_str()].icolumn);
 	}
 
 }
@@ -282,12 +282,7 @@ void Game::Swap(std::string name_1, std::string name_2, Node * pObject_1, Node *
 {
 	TableWithChipsParameters temp(tablewithchips[name_1]);
 
-	tablewithchips[name_1].icolumn = tablewithchips[name_2].icolumn;
-	tablewithchips[name_1].iraw    = tablewithchips[name_2].iraw;
 	tablewithchips[name_1].iId     = tablewithchips[name_2].iId;
-
-	tablewithchips[name_2].icolumn = temp.icolumn;
-	tablewithchips[name_2].iraw    = temp.iraw;
 	tablewithchips[name_2].iId     = temp.iId;
 	
 	//мен€ю дл€ Holder
@@ -378,35 +373,36 @@ bool Game::LimitingOnTopRightBottomLeft(int raw_tar, int col_tar, int raw_cur, i
 	int col_from       = tablewithchips[bClicked-> GetName()].icolumn;
     int delta_raw      = raw_from - raw_tar;
     int delta_column   = col_from - col_tar;
-    bool blimiting     = true;
+    bool blimiting     = false;
     //--------------------------------------------------
+
     if ((delta_raw >= 0) && (delta_column <= 0))
 	{
         blimiting =  ((raw_cur < raw_tar  && col_cur < col_from) || 
-                     (raw_cur > raw_from  && col_cur < col_from) ||
-                     (raw_cur < raw_tar   && col_cur > col_tar)  ||
-                     (raw_cur > raw_from  && col_cur > col_tar));
+                      (raw_cur > raw_from  && col_cur < col_from) ||
+                      (raw_cur < raw_tar   && col_cur > col_tar)  ||
+                      (raw_cur > raw_from  && col_cur > col_tar));
 	}
     else if (delta_raw >= 0 && delta_column >= 0)
 	{
         blimiting =  ((raw_cur < raw_tar  && col_cur < col_tar)  ||
-                     (raw_cur > raw_from  && col_cur < col_tar)  ||
-                     (raw_cur < raw_tar   && col_cur > col_from) ||
-                     (raw_cur > raw_from  && col_cur > col_from));
+                      (raw_cur > raw_from  && col_cur < col_tar)  ||
+                      (raw_cur < raw_tar   && col_cur > col_from) ||
+                      (raw_cur > raw_from  && col_cur > col_from));
 	}
     else if (delta_raw <= 0 && delta_column <= 0)
 	{
         blimiting =  ((raw_cur < raw_from  && col_cur < col_from) || 
-                     (raw_cur > raw_tar    && col_cur < col_from) || 
-                     (raw_cur < raw_from   && col_cur > col_tar)  || 
-                     (raw_cur > raw_tar    && col_cur > col_tar));
+                      (raw_cur > raw_tar    && col_cur < col_from) || 
+                      (raw_cur < raw_from   && col_cur > col_tar)  || 
+                      (raw_cur > raw_tar    && col_cur > col_tar));
 	}
     else if (delta_raw <= 0 && delta_column >= 0)
 	{
         blimiting =  ((raw_cur < raw_from  && col_cur < col_tar) || 
-                     (raw_cur > raw_tar    && col_cur < col_tar) ||
-                     (raw_cur < raw_from   && col_cur > col_from)||
-                     (raw_cur > raw_tar    && col_cur > col_from));
+                      (raw_cur > raw_tar    && col_cur < col_tar) ||
+                      (raw_cur < raw_from   && col_cur > col_from)||
+                      (raw_cur > raw_tar    && col_cur > col_from));
 	}
     //--------------------------------------------------
 	return blimiting;
@@ -448,7 +444,7 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 
 	if (CheckOnTurn(raw_cur - 1, column_cur, &iNumberOfTurns) && !is_limit && !top && is_free)
 	{
-		top = true;
+		bottom = true;
 
 		is_connect = IsConnect(raw_cur - 1, column_cur, raw_tar, col_tar, iNumberOfTurns);
 		if (is_connect)
@@ -467,7 +463,7 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 	{
 		
 
-		right = true;
+		left = true;
 		is_connect = IsConnect(raw_cur, column_cur + 1, raw_tar, col_tar, iNumberOfTurns);
 		if (is_connect)
 			return true;
@@ -483,7 +479,7 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 
 	if (CheckOnTurn(raw_cur + 1, column_cur, &iNumberOfTurns) && !is_limit  && !bottom && is_free)
 	{
-		bottom = true;
+		top = true;
 		is_connect = IsConnect(raw_cur + 1, column_cur, raw_tar, col_tar, iNumberOfTurns);
 		if (is_connect)
 			return true;
@@ -499,7 +495,7 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 
 	if (CheckOnTurn(raw_cur, column_cur - 1, &iNumberOfTurns) && !is_limit  && !left && is_free)
 	{
-		left = true;
+		right = true;
 		is_connect = IsConnect(raw_cur, column_cur - 1, raw_tar, col_tar, iNumberOfTurns);
 		if (is_connect)
 			return true;
