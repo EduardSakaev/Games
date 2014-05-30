@@ -2,7 +2,7 @@
 #include <ctime>
 
 //===========================================
-Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(1), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
+Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(20), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
 {
 	iLeftTop.x = 350;
 	iLeftTop.y = 265;
@@ -19,7 +19,7 @@ Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUnique
 
 	CreatePositions();
 	CreateObjectsTable();
-	//RandomizeObjects();
+	RandomizeObjects();
 }
 //===========================================
 
@@ -432,6 +432,7 @@ bool Game::CheckOnConnect(Node * _sprite1, Node * _sprite2)
 		tablewithchips[_sprite2 -> GetName()].iId = 0;
 	}
 
+	ClearTableFromRecursiveWay();
 	return is_connect;
 }
 //===========================================
@@ -517,7 +518,16 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 //===========================================
 void Game::ClearTableFromRecursiveWay()
 {
+	int size = tablewithchips.size();
 
+	for (int i = 0; i < size; ++i)
+	{
+		std::string name = GetNameById(i);
+		tablewithchips[name].top = false;
+		tablewithchips[name].right = false;
+		tablewithchips[name].bottom = false;
+		tablewithchips[name].left = false;
+	}
 }
 //===========================================
 bool Game::CheckOnTurn(int raw_next, int column_next, int * number_of_turns)
