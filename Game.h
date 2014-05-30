@@ -40,22 +40,21 @@ class Game
 		int icolumn; //column position
 		int iId;     //group id
 
+		bool top;
+		bool bottom;
+		bool right;
+		bool left;
+
 		TableWithChipsParameters(const TableWithChipsParameters & Right ):iraw(Right.iraw), icolumn(Right.icolumn), iId(Right.iId)
 		{
-
+			top = Right.top;
+			bottom = Right.bottom;
+			left = Right.left;
+			right = Right.right;
 		}
 
-		TableWithChipsParameters(){}
-
-		//operator of assignment
-	private:
-		TableWithChipsParameters & operator = (TableWithChipsParameters & Right)
-		{
-			iraw = Right.iraw;
-			icolumn = Right.icolumn;
-			iId = Right.iId;
-			return *this;
-		}
+		TableWithChipsParameters():left(false), right(false), bottom(false), top(false)
+		{}
 	};
 
 	std::map<std::string, TableWithChipsParameters> tablewithchips; // store current chip position and its group
@@ -86,6 +85,7 @@ private:
 	bool LimitingOnTopRightBottomLeft(int raw_tar, int col_tar, int raw_cur, int col_cur);
 	bool CheckOnTurn(int raw_next, int column_next, int * number_of_turns);
 	bool IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int iNumberOfTurns);
+	void ClearTableFromRecursiveWay();
 
 	//=======================================================
 	//game fiches

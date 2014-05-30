@@ -65,7 +65,7 @@ bool RenderFunc()
 	hge->Gfx_Clear(0);
 	events ->Render();
 
-	fnt->printf(5, 5, HGETEXT_LEFT, "dt:%.3f\nFPS:%d\n%.1f  %.1f", hge->Timer_GetDelta(), hge->Timer_GetFPS(), fcursor_x, fcursor_y);
+	fnt->printf(5, 250, HGETEXT_LEFT, "dt:%.3f\nFPS:%d\n%.1f  %.1f", hge->Timer_GetDelta(), hge->Timer_GetFPS(), fcursor_x, fcursor_y);
 
 	hge->Gfx_EndScene();
 
@@ -95,7 +95,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		return 0;
 	}
 
-	fnt = new hgeFont("font1.fnt");
+	fnt = new hgeFont("fonts\\font1.fnt");
 	game = new Game();  
 	events = new Events(game);
 
