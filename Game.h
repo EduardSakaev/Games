@@ -83,7 +83,7 @@ private:
 	//======================================================= mechanics of game
 	bool CheckOnConnect(Node * _sprite1, Node * _sprite2); // Check if 2 sprite might be connected
 	bool LimitingOnTopRightBottomLeft(int raw_tar, int col_tar, int raw_cur, int col_cur);
-	bool CheckOnTurn(int raw_next, int column_next, int * number_of_turns);
+	int CheckOnTurn(int raw_next, int column_next, int  number_of_turns);
 	bool IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int iNumberOfTurns);
 	void ClearTableFromRecursiveWay();
 
