@@ -211,8 +211,8 @@ void Game::OnClickBegin(Node * _pSprite)
 
 	if ((bClicked != _pSprite) && (tablewithchips[bClicked -> GetName()].iId == tablewithchips[_pSprite-> GetName()].iId) && CheckOnConnect(bClicked, _pSprite) ) 
 	{
-		pHelpers->EntityHide(bClicked-> GetName());
-		pHelpers->EntityHide(_pSprite -> GetName());
+		pHelpers->EntityFadeHide(0, 1, bClicked-> GetName());
+		pHelpers->EntityFadeHide(0, 1, _pSprite -> GetName());
 
 		SetScore(GetScore() + 20);
 	}
