@@ -2,7 +2,7 @@
 #include <ctime>
 
 //===========================================
-Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(1), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
+Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(20), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
 {
 	iLeftTop.x = 350;
 	iLeftTop.y = 265;
@@ -450,17 +450,20 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 	std::string name_next = GetNameByRawAndColumn(raw_cur - 1, column_cur);
 	bool is_free = (tablewithchips[name_next].iId == 0);
 
-	if (raw_cur - 1 == raw_tar && column_cur == col_tar) 
-			return true;
-
-	int iLocalNumberOfTurns = CheckOnTurn(raw_cur - 1, column_cur, iNumberOfTurns);
-	if (!is_limit && !tablewithchips[name_cur].top && is_free && iLocalNumberOfTurns <= 2)
+	int iNextNumberOfTurn = CheckOnTurn(raw_cur - 1, column_cur, iNumberOfTurns);
+	if (iNextNumberOfTurn <= 2)
 	{
-		tablewithchips[name_cur].top = true;
-		tablewithchips[name_next].bottom = true;
-		is_connect = IsConnect(raw_cur - 1, column_cur, raw_tar, col_tar, iLocalNumberOfTurns);
-		if (is_connect)
-			return true;
+		if (raw_cur - 1 == raw_tar && column_cur == col_tar) 
+				return true;
+	
+		if (!is_limit && !tablewithchips[name_cur].top && is_free)
+		{
+			tablewithchips[name_cur].top = true;
+			tablewithchips[name_next].bottom = true;
+			is_connect = IsConnect(raw_cur - 1, column_cur, raw_tar, col_tar, iNextNumberOfTurn);
+			if (is_connect)
+				return true;
+		}
 	}
 	//====================================================
 	//right
@@ -468,16 +471,20 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 	name_next = GetNameByRawAndColumn(raw_cur, column_cur + 1);
     is_free = (tablewithchips[name_next].iId == 0);
 
-	if (raw_cur == raw_tar && column_cur + 1 == col_tar) 
-			return true;
-	iLocalNumberOfTurns = CheckOnTurn(raw_cur, column_cur + 1, iNumberOfTurns);
-	if (!is_limit  && !tablewithchips[name_cur].right && is_free && CheckOnTurn(raw_cur, column_cur + 1, iNumberOfTurns))
+	iNextNumberOfTurn = CheckOnTurn(raw_cur, column_cur + 1, iNumberOfTurns);
+	if (iNextNumberOfTurn <= 2)
 	{
-	    tablewithchips[name_cur].right = true;
-		tablewithchips[name_next].left = true;
-		is_connect = IsConnect(raw_cur, column_cur + 1, raw_tar, col_tar, iNumberOfTurns);
-		if (is_connect)
-			return true;
+		if (raw_cur == raw_tar && column_cur + 1 == col_tar) 
+				return true;
+
+		if (!is_limit  && !tablewithchips[name_cur].right && is_free)
+		{
+			tablewithchips[name_cur].right = true;
+			tablewithchips[name_next].left = true;
+			is_connect = IsConnect(raw_cur, column_cur + 1, raw_tar, col_tar, iNextNumberOfTurn);
+			if (is_connect)
+				return true;
+		}
 	}
 	//====================================================
 	//bottom
@@ -485,16 +492,20 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 	name_next = GetNameByRawAndColumn(raw_cur + 1, column_cur);
     is_free = (tablewithchips[name_next].iId == 0);
 
-	if (raw_cur + 1 == raw_tar && column_cur == col_tar) 
-			return true;
-
-	if (!is_limit  && !tablewithchips[name_cur].bottom && is_free && CheckOnTurn(raw_cur + 1, column_cur, &iNumberOfTurns) )
+	iNextNumberOfTurn = CheckOnTurn(raw_cur + 1, column_cur, iNumberOfTurns);
+	if (iNextNumberOfTurn <= 2)
 	{
-		tablewithchips[name_cur].bottom = true;
-		tablewithchips[name_next].top = true;
-		is_connect = IsConnect(raw_cur + 1, column_cur, raw_tar, col_tar, iNumberOfTurns);
-		if (is_connect)
-			return true;
+		if (raw_cur + 1 == raw_tar && column_cur == col_tar) 
+				return true;
+	
+		if (!is_limit  && !tablewithchips[name_cur].bottom && is_free)
+		{
+			tablewithchips[name_cur].bottom = true;
+			tablewithchips[name_next].top = true;
+			is_connect = IsConnect(raw_cur + 1, column_cur, raw_tar, col_tar, iNextNumberOfTurn);
+			if (is_connect)
+				return true;
+		}
 	}
 	//left
 	//====================================================
@@ -502,16 +513,20 @@ bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int 
 	name_next = GetNameByRawAndColumn(raw_cur, column_cur - 1);
     is_free = (tablewithchips[name_next].iId == 0);
 
-	if (raw_cur == raw_tar && column_cur - 1 == col_tar) 
-			return true;
-
-	if (!is_limit  && !tablewithchips[name_cur].left && is_free && CheckOnTurn(raw_cur, column_cur - 1, &iNumberOfTurns))
+	iNextNumberOfTurn = CheckOnTurn(raw_cur, column_cur - 1, iNumberOfTurns);
+	if (iNextNumberOfTurn <= 2)
 	{
-		tablewithchips[name_cur].left = true;
-		tablewithchips[name_next].right = true;
-		is_connect = IsConnect(raw_cur, column_cur - 1, raw_tar, col_tar, iNumberOfTurns);
-		if (is_connect)
-			return true;
+		if (raw_cur == raw_tar && column_cur - 1 == col_tar) 
+				return true;
+
+		if (!is_limit  && !tablewithchips[name_cur].left && is_free)
+		{
+			tablewithchips[name_cur].left = true;
+			tablewithchips[name_next].right = true;
+			is_connect = IsConnect(raw_cur, column_cur - 1, raw_tar, col_tar, iNextNumberOfTurn);
+			if (is_connect)
+				return true;
+		}
 	}
 
 	iwaytoconnect.pop_back();
@@ -535,7 +550,7 @@ void Game::ClearTableFromRecursiveWay()
 int Game::CheckOnTurn(int raw_next, int column_next, int number_of_turns)
 {
 	int size =  iwaytoconnect.size(); 
-    if (size > 2) 
+    if (size > 1) 
 	{
 		int raw_cur, col_cur;
 		GetRawAndColumnById(&raw_cur, &col_cur, iwaytoconnect[size - 1]);
