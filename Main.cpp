@@ -100,8 +100,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	events = new Events(game);
 
 	hge->System_Start();
-	// Delete created objects and free loaded resources
 
+	// Delete created objects and free loaded resources
 	freeMemory();
 
 	if(_CrtDumpMemoryLeaks())
