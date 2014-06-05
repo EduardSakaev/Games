@@ -1,0 +1,12 @@
+Debug/*.tlog
+Debug/*.obj
+Debug/*.log
+Debug/*.pdb
+Debug/*.idb
+Debug/*.exe
+Debug/*.ilk
+Debug/*.lastbuildstate
+*.filters
+*.stackdump
+*.aps
+*.suo
