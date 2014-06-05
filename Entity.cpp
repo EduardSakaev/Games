@@ -99,6 +99,22 @@ void SpriteEntity::SetXY(float _x, float _y)
 	y = _y;
 }
 //=====================================================
+void SpriteEntity::SetScrX(float _x)
+{
+	x = _x - GetParentX(pAttach);
+}
+//=====================================================
+void SpriteEntity::SetScrY(float _y)
+{
+	y = _y - GetParentY(pAttach); 
+}
+//=====================================================
+void SpriteEntity::SetScrXY(float _x, float _y)
+{
+	x = _x - GetParentX(pAttach);
+	y = _y - GetParentY(pAttach);
+}
+//=====================================================
 void SpriteEntity::SetWidth(float _width)
 {
 	if (IsActive())

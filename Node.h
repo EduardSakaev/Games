@@ -43,8 +43,12 @@ public:
 	virtual bool IsIntersect(hgeVector)      = 0;
 
 
-	virtual void SetX(float _x)                = 0;
+	virtual void SetX(float _x)                = 0;  //coord relatives parent coord
 	virtual void SetY(float _y)                = 0;
+	virtual void SetXY(float _x, float _y)     = 0;
+	virtual void SetScrX(float _x)             = 0; //coord relatives screen coord
+	virtual void SetScrY(float _y)             = 0;
+	virtual void SetScrXY(float _x, float _y)  = 0;
 	virtual void SetWidth(float _width)        = 0;
 	virtual void SetHeight(float _height)      = 0;
 	virtual void SetHotSpotX(float _hx)        = 0;
@@ -55,7 +59,7 @@ public:
 	virtual void SetZ(int z)                    = 0; 
 
 	virtual void SetHotSpot(float _x, float _y) = 0;
-	virtual void SetXY(float _x, float _y)      = 0;
+	
 	virtual void SetRotationDeg(float Deg)      = 0;
 	virtual void SetRotationRad(float Rad)      = 0;
 	virtual void SetScaleX(float _scalex)       = 0;

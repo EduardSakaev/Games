@@ -90,13 +90,16 @@ public:
 public:
 	inline virtual void SetX(float _x);
 	inline virtual void SetY(float _y);
+	inline virtual void SetXY(float _x, float _y);
+	inline virtual void SetScrX(float _x);            
+	inline virtual void SetScrY(float _y);           
+	inline virtual void SetScrXY(float _x, float _y); 
 	inline virtual void SetWidth(float _width);
 	inline virtual void SetHeight(float _height);
 	inline virtual void SetName(std::string name);
 	inline virtual void SetHotSpotX(float _hx);
 	inline virtual void SetHotSpotY(float _hy);
 	inline virtual void SetHotSpot(float _x, float _y);
-	inline virtual void SetXY(float _x, float _y);
 	inline virtual void SetRotationDeg(float Deg);
 	inline virtual void SetRotationRad(float Rad);
 	inline virtual void SetTextureRect(float top_x, float top_y, float width, float height);

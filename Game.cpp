@@ -215,11 +215,14 @@ void Game::OnClickBegin(Node * _pSprite)
 		pHelpers->ChangeScaleY(bClicked-> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleX(bClicked-> GetName(), 1.5, 0, 1, 0.5);
 		pHelpers->ChangeScaleY(bClicked-> GetName(), 1.5, 0, 1, 0.5);
-
+		bClicked -> SetRespondable(false);
 		pHelpers->ChangeScaleX(_pSprite -> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleY(_pSprite -> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleX(_pSprite -> GetName(), 1.5, 0, 1, 0.5);
 		pHelpers->ChangeScaleY(_pSprite -> GetName(), 1.5, 0, 1, 0.5);
+		_pSprite -> SetRespondable(false);
+		/*pHelpers->MoveTo(_pSprite -> GetName(), 100, 100, 0.5);
+		pHelpers->MoveTo(bClicked -> GetName(), 700, 700, 0.5);*/
 
 		SetScore(GetScore() + 20);
 	}
