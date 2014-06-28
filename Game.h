@@ -86,6 +86,7 @@ private:
 	int CheckOnTurn(int raw_next, int column_next, int  number_of_turns);
 	bool IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int iNumberOfTurns);
 	void ClearTableFromRecursiveWay();
+	void SetZ(int z, Node *);
 
 	//=======================================================
 	//game fiches
@@ -102,6 +103,7 @@ private:
 	int GetIdByRawAndColumn(int raw, int column);
 	std::string GetNameById(int id);
 	std::string GetNameByRawAndColumn(int raw, int column);
+
 private:
 	//events
 	void Update(float dt);

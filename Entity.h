@@ -1,6 +1,7 @@
 #pragma once
 #include "Node.h"
 #include "SpriteEntityhge.h"
+#include "Holder.h"
 
 extern HGE * hge;
 

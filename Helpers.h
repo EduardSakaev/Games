@@ -107,6 +107,7 @@ private:
 			}
 		}
 	}
+
 	static void FadeShowFunction(Node * pSprite, double t1, double t0)
 	{
 		double count_of_time = 0;

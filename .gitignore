@@ -10,3 +10,4 @@ Debug/*.lastbuildstate
 *.stackdump
 *.aps
 *.suo
+Node.cpp

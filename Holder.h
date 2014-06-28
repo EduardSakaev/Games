@@ -41,5 +41,7 @@ public:
 
 	void AddEntityObject(Node * obj, std::string name);
 	void AddBindObject(Node * obj, std::string name);
+
+	void Sort();
 };
 

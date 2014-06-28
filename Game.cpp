@@ -125,7 +125,7 @@ void Game::CreateObjectsTable()
 	// cursor
 	std::string cursor_path = folder_path + "cursor.png";
 	std::string cursor_name = "cursor";
-	Node * pobject_cursor =  CreateObject(cursor_path, cursor_name, hgeVector(0,0), 64, 54, 10);
+	Node * pobject_cursor =  CreateObject(cursor_path, cursor_name, hgeVector(0,0), 64, 54, 101);
 	pobject_cursor -> SetHotSpot(0, 0);
 	pHolder ->AddEntityObject(pobject_cursor, cursor_name);
 }
@@ -219,17 +219,20 @@ void Game::OnClickBegin(Node * _pSprite)
 		/*pHelpers->ChangeScaleX(bClicked-> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleY(bClicked-> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleX(bClicked-> GetName(), 1.5, 0, 1, 0.5);
-		pHelpers->ChangeScaleY(bClicked-> GetName(), 1.5, 0, 1, 0.5);*/
-		bClicked -> SetRespondable(false);
-		/*pHelpers->ChangeScaleX(_pSprite -> GetName(), 1, 1.5, 0.5);
+		pHelpers->ChangeScaleY(bClicked-> GetName(), 1.5, 0, 1, 0.5);
+		
+		pHelpers->ChangeScaleX(_pSprite -> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleY(_pSprite -> GetName(), 1, 1.5, 0.5);
 		pHelpers->ChangeScaleX(_pSprite -> GetName(), 1.5, 0, 1, 0.5);
 		pHelpers->ChangeScaleY(_pSprite -> GetName(), 1.5, 0, 1, 0.5);*/
+
+		bClicked -> SetRespondable(false);
 		_pSprite -> SetRespondable(false);
 		SetZ(100, bClicked);
 		SetZ(100, _pSprite);
-		pHelpers->MoveTo(_pSprite -> GetName(), 100, 100, 1);
-		pHelpers->MoveTo(bClicked -> GetName(), 700, 700, 1);
+
+		pHelpers->MoveTo(_pSprite -> GetName(), 100, 100, 1, 0.1);
+		pHelpers->MoveTo(bClicked -> GetName(), 700, 700, 1, 0.1);
 
 		SetScore(GetScore() + 20);
 	}
