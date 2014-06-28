@@ -97,3 +97,32 @@ Holder::~Holder()
 	tablewithallobjects.clear();
 	tablewithbindobjects.clear();
 }
+//===============================================================
+void Holder::Sort()
+{
+	int iSize = tablewithallobjectnames.size();
+	if (iSize > 2)
+	 {
+        std::size_t jump = iSize;
+        bool swapped = true;
+        while (jump > 1 || swapped) 
+		{
+            if (jump > 1)
+                jump /= 1.24733;
+
+            swapped = false;
+
+            for (std::size_t i = 0; i + jump < iSize; ++i)
+			{
+				std::string name_i    = tablewithallobjectnames[i];
+				std::string name_jump = tablewithallobjectnames[i + jump];
+                if (tablewithallobjects[name_i]->GetZ() > tablewithallobjects[name_jump]->GetZ()) 
+				{
+                    std::swap(tablewithallobjectnames[i], tablewithallobjectnames[i + jump]);
+                    swapped = true;
+                }
+			}
+        }
+    }
+}
+ 

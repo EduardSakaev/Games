@@ -162,9 +162,10 @@ void SpriteEntity::SetZ(int _z)
 {
 	if (IsActive())
 	{
-		int _idz = GetZ() - _z;
-		RecalculatePositionsForChilds(this, 0, 0, 0, _idz);
+		//int _idz = GetZ() - _z;
+		//RecalculatePositionsForChilds(this, 0, 0, 0, _idz);
 		zOrder = _z;
+		//Sort all objects
 	}
 }
 //=====================================================

@@ -2,7 +2,7 @@
 #include <ctime>
 
 //===========================================
-Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(20), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
+Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(1), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
 {
 	iLeftTop.x = 350;
 	iLeftTop.y = 265;
@@ -83,7 +83,6 @@ void Game::CreateObjectsTable()
 			pHolder -> AddEntityObject(pobject, name);
 			pHolder -> AddBindObject(pobject, name);
 			pobject -> AttachTo(pobject_bg);
-
 			// create table
 			TableWithChipsParameters table;
 			table.icolumn = j;
@@ -142,6 +141,12 @@ hgeVector Game::GetXYFromArray(int raw, int column)
 	hgeVector curpos;
 	curpos = tableofcoord[id];
 	return curpos;
+}
+//===========================================
+void Game::SetZ(int z, Node * pobject)
+{
+	pobject -> SetZ(z);
+	pHolder -> Sort();
 }
 //=============================================
 Game::~Game()
@@ -221,8 +226,10 @@ void Game::OnClickBegin(Node * _pSprite)
 		pHelpers->ChangeScaleX(_pSprite -> GetName(), 1.5, 0, 1, 0.5);
 		pHelpers->ChangeScaleY(_pSprite -> GetName(), 1.5, 0, 1, 0.5);*/
 		_pSprite -> SetRespondable(false);
-		pHelpers->MoveTo(_pSprite -> GetName(), 100, 100, 5);
-		pHelpers->MoveTo(bClicked -> GetName(), 700, 700, 5);
+		SetZ(100, bClicked);
+		SetZ(100, _pSprite);
+		pHelpers->MoveTo(_pSprite -> GetName(), 100, 100, 1);
+		pHelpers->MoveTo(bClicked -> GetName(), 700, 700, 1);
 
 		SetScore(GetScore() + 20);
 	}
