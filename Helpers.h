@@ -74,15 +74,6 @@ public:
 		MoveTo_thread.detach();
 	}
 
-	/*void ChangeScale(std::string name, double scalex_begin, double scalex_end, double t1 = 0.25, double t0 = 0)
-	{
-		Node * pSprite = pHolder -> GetEntityObjectByName(name);
-		pSprite -> SetRespondable(true);
-
-		std::thread changescalex_thread(ChangeScaleFunction, pSprite, scalex_begin, scalex_end, t1, t0);
-		changescalex_thread.detach();
-	}*/
-
 private:
 	static void FadeHideFunction(Node * pSprite, double t1, double t0)
 	{

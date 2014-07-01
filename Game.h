@@ -87,6 +87,7 @@ private:
 	bool IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int iNumberOfTurns);
 	void ClearTableFromRecursiveWay();
 	void SetZ(int z, Node *);
+	bool CheckOnPerform();
 
 	//=======================================================
 	//game fiches

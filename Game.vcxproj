@@ -42,8 +42,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\hge\hge181\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\hge\hge181\lib\vc;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\Edik\Programming\hge\hge181\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\Edik\Programming\hge\hge181\lib\vc;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -87,7 +87,6 @@
     <ClCompile Include="Holder.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="My_Library.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="SpriteEntityhge.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
@@ -99,6 +98,7 @@
     <ClInclude Include="Holder.h" />
     <ClInclude Include="My_library.h" />
     <ClInclude Include="SpriteEntityhge.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="VectorChild.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="stdafx.h" />

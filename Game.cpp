@@ -2,7 +2,7 @@
 #include <ctime>
 
 //===========================================
-Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(1), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
+Game::Game():iNumOfColumns(15), iNumOfRaws(8), iDX(42), iDY(42), iNumberOfUniqueChips(20), mousepos(0,0), bClicked(NULL), Score(0), focusedObject(NULL)
 {
 	iLeftTop.x = 350;
 	iLeftTop.y = 265;
@@ -234,6 +234,9 @@ void Game::OnClickBegin(Node * _pSprite)
 		pHelpers->MoveTo(_pSprite -> GetName(), 100, 100, 1, 0.1);
 		pHelpers->MoveTo(bClicked -> GetName(), 700, 700, 1, 0.1);
 
+		/*if(!CheckOnPerform())
+			RandomizeObjects();*/
+
 		SetScore(GetScore() + 20);
 	}
 	
@@ -455,9 +458,7 @@ bool Game::CheckOnConnect(Node * _sprite1, Node * _sprite2)
 //===========================================
 bool Game::IsConnect(int raw_cur, int column_cur, int raw_tar, int col_tar, int iNumberOfTurns)
 {
-	//static bool bconnected = false;
 	//проверяю все направления, по нахождению пути...
-	//int raw_next = raw_cur, column_next = column_cur;
 	int id = GetIdByRawAndColumn(raw_cur, column_cur);
 	iwaytoconnect.push_back(id);
 
@@ -586,4 +587,24 @@ int Game::CheckOnTurn(int raw_next, int column_next, int number_of_turns)
 
 
 	return number_of_turns;
+}
+//===========================================
+bool Game::CheckOnPerform()
+{
+	int size = pHolder -> GetLengthBindObjectTable();
+	for (int i = 0; i < size; ++i)
+		for (int j = 0; j < size; ++j)
+		{
+			if (i == j) continue;
+
+			Node * pobject1 = pHolder -> GetBindObjectById(i);
+			Node * pobject2 = pHolder -> GetBindObjectById(j);
+
+			if (tablewithchips[pobject1 -> GetName()].iId != 0 && tablewithchips[pobject1 -> GetName()].iId == tablewithchips[pobject2 -> GetName()].iId
+				 && CheckOnConnect(pobject1, pobject2))
+			{
+				return true;
+			}
+		}
+	return false;
 }
