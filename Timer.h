@@ -7,7 +7,7 @@
 //public:
 //	Timer()
 //	{
-//
+//      
 //	}
 //
 //	void SetTimer(double time, void (*func)(void))
